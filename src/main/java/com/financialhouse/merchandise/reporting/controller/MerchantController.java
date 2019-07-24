@@ -1,9 +1,9 @@
 package com.financialhouse.merchandise.reporting.controller;
 
 import com.financialhouse.merchandise.reporting.config.JwtTokenUtil;
-import com.financialhouse.merchandise.reporting.model.JwtRequest;
-import com.financialhouse.merchandise.reporting.model.JwtResponse;
-import com.financialhouse.merchandise.reporting.model.Status;
+import com.financialhouse.merchandise.reporting.model.db.Status;
+import com.financialhouse.merchandise.reporting.model.rest.JwtRequest;
+import com.financialhouse.merchandise.reporting.model.rest.JwtResponse;
 import com.financialhouse.merchandise.reporting.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public class MerchantController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @RequestMapping(value = "/merchant/user/login", method = RequestMethod.POST)
+    @PostMapping("/merchant/user/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest jwtRequest) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));

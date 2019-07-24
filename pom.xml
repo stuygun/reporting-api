@@ -33,6 +33,7 @@
 		<dependency.jupiter.engine.version>5.4.2</dependency.jupiter.engine.version>
 		<dependency.jupiter.params.version>5.4.2</dependency.jupiter.params.version>
 		<dependency.hamcrest.version>2.1</dependency.hamcrest.version>
+		<dependency.httpclient.version>4.5.9</dependency.httpclient.version>
 		<dependency.lombok.version>1.18.8</dependency.lombok.version>
 
 		<plugin.maven.failsafe.version>2.22.0</plugin.maven.failsafe.version>
@@ -66,6 +67,11 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>${dependency.commons.lang3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${dependency.httpclient.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
@@ -130,13 +136,6 @@
 			<version>${dependency.junit.platform.launcher.version}</version>
 			<scope>test</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.5.9</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest</artifactId>
@@ -229,6 +228,7 @@
 					<effort>Max</effort>
 					<threshold>Low</threshold>
 					<xmlOutput>true</xmlOutput>
+					<excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>
 				</configuration>
 				<executions>
 					<execution>

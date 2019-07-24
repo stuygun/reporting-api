@@ -1,6 +1,6 @@
 package com.financialhouse.merchandise.reporting.repository;
 
-import com.financialhouse.merchandise.reporting.model.ApiUser;
+import com.financialhouse.merchandise.reporting.model.db.ApiUser;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

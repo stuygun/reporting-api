@@ -19,6 +19,15 @@ public class ConnectorConfig {
         return tomcat;
     }
 
+    private Connector redirectConnector() {
+        Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
+        connector.setScheme("http");
+        connector.setPort(8080);
+        connector.setSecure(false);
+        connector.setRedirectPort(8443);
+        return connector;
+    }
+
     static class ReportingTomcatServletWebServerFactory extends TomcatServletWebServerFactory {
         @Override
         protected void postProcessContext(Context context) {
@@ -29,14 +38,5 @@ public class ConnectorConfig {
             securityConstraint.addCollection(collection);
             context.addConstraint(securityConstraint);
         }
-    }
-
-    private Connector redirectConnector() {
-        Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
-        connector.setScheme("http");
-        connector.setPort(8080);
-        connector.setSecure(false);
-        connector.setRedirectPort(8443);
-        return connector;
     }
 }

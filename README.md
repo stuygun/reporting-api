@@ -9,6 +9,8 @@
 | 4 | Create entity model                   |                                        |                                       |
 | 5 | Write API Methods                     |                                        |                                       |
 | 6 | Use JUnit5                            | OK                                     |                                       |
+| 7 | Hibernate Listener                    |                                        |                                       |
+| 8 | Heruko Deployment Instructions        |                                        |                                       |
 
 * To build project, run:
     `mvn install dockerfile:build`  

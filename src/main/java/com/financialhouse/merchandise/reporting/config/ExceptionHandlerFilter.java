@@ -2,7 +2,7 @@ package com.financialhouse.merchandise.reporting.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financialhouse.merchandise.reporting.exceptions.AuthenticationErrorResponse;
-import com.financialhouse.merchandise.reporting.model.Status;
+import com.financialhouse.merchandise.reporting.model.db.Status;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

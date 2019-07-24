@@ -1,4 +1,4 @@
-package com.financialhouse.merchandise.reporting.model;
+package com.financialhouse.merchandise.reporting.model.db;
 
 import lombok.Data;
 

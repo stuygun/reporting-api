@@ -1,4 +1,4 @@
-package com.financialhouse.merchandise.reporting.model;
+package com.financialhouse.merchandise.reporting.model.rest;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 public class JwtRequest {
     @JsonProperty("email")
     private String username;
-
     @JsonProperty("password")
     private String password;
 }

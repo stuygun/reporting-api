@@ -2,8 +2,8 @@ package com.financialhouse.merchandise.reporting.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financialhouse.merchandise.reporting.exceptions.AuthenticationErrorResponse;
-import com.financialhouse.merchandise.reporting.model.JwtResponse;
-import com.financialhouse.merchandise.reporting.model.Status;
+import com.financialhouse.merchandise.reporting.model.db.Status;
+import com.financialhouse.merchandise.reporting.model.rest.JwtResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +12,10 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.HttpStatusCodeException;
@@ -32,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("integrationtest")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@DisplayName("Merchant Conroller Integration Tests")
+@DisplayName("Merchant Controller Integration Tests")
 @Execution(ExecutionMode.CONCURRENT)
 public class MerchantControllerIntegrationTest extends AbstractControllerTest {
     @Value("${jwt.expiration}")

@@ -1,7 +1,7 @@
 package com.financialhouse.merchandise.reporting.controller;
 
-import com.financialhouse.merchandise.reporting.model.JwtRequest;
-import com.financialhouse.merchandise.reporting.model.JwtResponse;
+import com.financialhouse.merchandise.reporting.model.rest.JwtRequest;
+import com.financialhouse.merchandise.reporting.model.rest.JwtResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.TrustAllStrategy;

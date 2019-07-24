@@ -1,6 +1,6 @@
 package com.financialhouse.merchandise.reporting.exceptions;
 
-import com.financialhouse.merchandise.reporting.model.Status;
+import com.financialhouse.merchandise.reporting.model.db.Status;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
