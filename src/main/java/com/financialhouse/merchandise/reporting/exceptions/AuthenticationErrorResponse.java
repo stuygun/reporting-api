@@ -1,7 +1,7 @@
 package com.financialhouse.merchandise.reporting.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.financialhouse.merchandise.reporting.model.db.Status;
+import com.financialhouse.merchandise.reporting.model.db.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

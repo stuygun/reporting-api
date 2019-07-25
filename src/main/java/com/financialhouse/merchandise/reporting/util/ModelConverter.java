@@ -15,6 +15,9 @@ public class ModelConverter {
         CustomerInfoQueryResponse ciqr = new CustomerInfoQueryResponse();
 
         ciqr.setNumber(customerInfo.getNumber());
+        ciqr.setCreatedAt(customerInfo.getCreatedAt());
+        ciqr.setModifiedAt(customerInfo.getModifiedAt());
+        ciqr.setDeletedAt(customerInfo.getDeletedAt());
         ciqr.setExpiryMonth(customerInfo.getExpiryMonth());
         ciqr.setExpiryYear(customerInfo.getExpiryYear());
         ciqr.setStartMonth(customerInfo.getStartMonth());

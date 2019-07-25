@@ -1,7 +1,8 @@
 package com.financialhouse.merchandise.reporting.model.rest;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.financialhouse.merchandise.reporting.model.db.Gender;
+import com.financialhouse.merchandise.reporting.model.db.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,15 @@ import java.util.Date;
 public class CustomerInfoQueryResponse {
     @JsonProperty("number")
     private Long number;
+    @JsonProperty("created_at")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createdAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonProperty("updated_at")
+    private Date modifiedAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonProperty("deleted_at")
+    private Date deletedAt;
     @JsonProperty("expiryMonth")
     private Short expiryMonth;
     @JsonProperty("expiryYear")
@@ -27,6 +37,7 @@ public class CustomerInfoQueryResponse {
     @JsonProperty("email")
     private String email;
     @JsonProperty("birthday")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date birthday;
     @JsonProperty("gender")
     private Gender gender;

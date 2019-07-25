@@ -2,7 +2,7 @@ package com.financialhouse.merchandise.reporting.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financialhouse.merchandise.reporting.exceptions.AuthenticationErrorResponse;
-import com.financialhouse.merchandise.reporting.model.db.Status;
+import com.financialhouse.merchandise.reporting.model.db.enums.Status;
 import com.financialhouse.merchandise.reporting.model.rest.JwtResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

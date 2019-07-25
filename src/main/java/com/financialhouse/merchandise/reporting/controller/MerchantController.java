@@ -1,7 +1,7 @@
 package com.financialhouse.merchandise.reporting.controller;
 
 import com.financialhouse.merchandise.reporting.config.JwtTokenUtil;
-import com.financialhouse.merchandise.reporting.model.db.Status;
+import com.financialhouse.merchandise.reporting.model.db.enums.Status;
 import com.financialhouse.merchandise.reporting.model.rest.JwtRequest;
 import com.financialhouse.merchandise.reporting.model.rest.JwtResponse;
 import com.financialhouse.merchandise.reporting.service.JwtUserDetailsService;

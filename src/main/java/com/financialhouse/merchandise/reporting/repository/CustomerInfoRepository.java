@@ -8,5 +8,4 @@ import java.util.Optional;
 
 @Repository
 public interface CustomerInfoRepository extends JpaRepository<CustomerInfo, Long> {
-    Optional<CustomerInfo> findOneByTransactions_transactionId(String transactionId);
 }

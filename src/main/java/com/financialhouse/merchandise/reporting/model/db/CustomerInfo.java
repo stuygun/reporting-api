@@ -1,7 +1,10 @@
 package com.financialhouse.merchandise.reporting.model.db;
 
+import com.financialhouse.merchandise.reporting.model.db.enums.Gender;
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,6 +20,12 @@ public class CustomerInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Setter(AccessLevel.NONE)
+    private Date createdAt;
+    @Setter(AccessLevel.NONE)
+    private Date modifiedAt;
+    @Setter(AccessLevel.NONE)
+    private Date deletedAt;
     private Long number;
     private Short expiryMonth;
     private Short expiryYear;
@@ -88,6 +97,18 @@ public class CustomerInfo {
         this.shippingFax = builder.shippingFax;
         this.token = builder.token;
         this.transactions = builder.transactions;
+    }
+
+    @PrePersist
+    private void prePersist() {
+        Date now = new Date();
+        this.createdAt = now;
+        this.modifiedAt = now;
+    }
+
+    @PreUpdate
+    private void preUpdate() {
+        this.modifiedAt = new Date();
     }
 
     public static class Builder {

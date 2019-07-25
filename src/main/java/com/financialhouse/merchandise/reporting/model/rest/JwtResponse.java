@@ -1,7 +1,7 @@
 package com.financialhouse.merchandise.reporting.model.rest;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.financialhouse.merchandise.reporting.model.db.Status;
+import com.financialhouse.merchandise.reporting.model.db.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
