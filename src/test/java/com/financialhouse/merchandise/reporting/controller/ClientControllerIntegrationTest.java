@@ -3,7 +3,6 @@ package com.financialhouse.merchandise.reporting.controller;
 import com.financialhouse.merchandise.reporting.model.rest.CustomerInfoQueryRequest;
 import com.financialhouse.merchandise.reporting.model.rest.CustomerInfoQueryResponse;
 import com.financialhouse.merchandise.reporting.model.rest.JwtResponse;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,23 +37,21 @@ public class ClientControllerIntegrationTest extends AbstractControllerTest {
     private long expiration;
 
     @Test
-    @Disabled("Disabled for data model creation")
     @DisplayName("Query CustomerInfo with existing transactionId")
     public void testQueryCustomerInfoWithTransactionId() throws URISyntaxException {
-        ResponseEntity<CustomerInfoQueryResponse> httpResponse = queryByTransactionId("transactionId-1");
+        ResponseEntity<CustomerInfoQueryResponse> httpResponse = queryByTransactionId("999702-1539329656-99921");
         CustomerInfoQueryResponse response = httpResponse.getBody();
 
         assertAll(
                 () -> assertThat(httpResponse.getStatusCodeValue(), is(equalTo(200))),
-                () -> assertThat(response.getNumber(), is(equalTo(4111111111111111L)))
+                () -> assertThat(response.getCustomerInfo().getNumber(), is(equalTo(99911L)))
         );
     }
 
     @Test
-    @Disabled("Disabled for data model creation")
     @DisplayName("Query CustomerInfo with non-existing transactionId")
-    public void testQueryCustomerInfoWithNonExistindTransactionId() throws URISyntaxException {
-        ResponseEntity<CustomerInfoQueryResponse> httpResponse = queryByTransactionId("non-existing");
+    public void testQueryCustomerInfoWithNonExistingTransactionId() throws URISyntaxException {
+        ResponseEntity<CustomerInfoQueryResponse> httpResponse = queryByTransactionId("123-456-789");
         CustomerInfoQueryResponse response = httpResponse.getBody();
 
         assertAll(

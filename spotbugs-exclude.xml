@@ -10,10 +10,26 @@
     </Match>
     <Match>
         <Class name="com.financialhouse.merchandise.reporting.model.db.CustomerInfo"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2,UPM_UNCALLED_PRIVATE_METHOD"/>
+    </Match>
+    <Match>
+        <Class name="com.financialhouse.merchandise.reporting.model.db.CustomerInfo$CustomerInfoBuilder"/>
         <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
     </Match>
     <Match>
-        <Class name="com.financialhouse.merchandise.reporting.model.db.CustomerInfo$Builder"/>
+        <Class name="com.financialhouse.merchandise.reporting.model.db.Agent"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2,UPM_UNCALLED_PRIVATE_METHOD"/>
+    </Match>
+    <Match>
+        <Class name="com.financialhouse.merchandise.reporting.model.db.Agent$AgentBuilder"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="com.financialhouse.merchandise.reporting.model.db.Transaction"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2,UPM_UNCALLED_PRIVATE_METHOD,RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
+    </Match>
+    <Match>
+        <Class name="com.financialhouse.merchandise.reporting.model.db.Transaction$TransactionBuilder"/>
         <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
     </Match>
 </FindBugsFilter>

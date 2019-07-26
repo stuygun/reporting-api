@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerInfoQueryResponse {
-    @JsonProperty("customerInfo")
-    private CustomerInfoJson customerInfo;
+public class TransactionQueryRequest {
+    @JsonProperty("transactionId")
+    private String transactionId;
 }

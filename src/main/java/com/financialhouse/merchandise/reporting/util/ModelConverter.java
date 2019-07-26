@@ -1,10 +1,22 @@
 package com.financialhouse.merchandise.reporting.util;
 
 import com.financialhouse.merchandise.reporting.model.db.CustomerInfo;
+import com.financialhouse.merchandise.reporting.model.db.Transaction;
+import com.financialhouse.merchandise.reporting.model.rest.CustomerInfoJson;
 import com.financialhouse.merchandise.reporting.model.rest.CustomerInfoQueryResponse;
+import com.financialhouse.merchandise.reporting.model.rest.TransactionQueryResponse;
 
-public class ModelConverter {
+public final class ModelConverter {
     private ModelConverter() {
+        throw new UnsupportedOperationException("Utility class cannot be instantiated");
+    }
+
+    public static TransactionQueryResponse convertToQueryResponse(Transaction transaction){
+        if (transaction == null) {
+            return null;
+        }
+
+        return null;
     }
 
     public static CustomerInfoQueryResponse convert(CustomerInfo customerInfo) {
@@ -14,43 +26,46 @@ public class ModelConverter {
 
         CustomerInfoQueryResponse ciqr = new CustomerInfoQueryResponse();
 
-        ciqr.setNumber(customerInfo.getNumber());
-        ciqr.setCreatedAt(customerInfo.getCreatedAt());
-        ciqr.setModifiedAt(customerInfo.getModifiedAt());
-        ciqr.setDeletedAt(customerInfo.getDeletedAt());
-        ciqr.setExpiryMonth(customerInfo.getExpiryMonth());
-        ciqr.setExpiryYear(customerInfo.getExpiryYear());
-        ciqr.setStartMonth(customerInfo.getStartMonth());
-        ciqr.setStartYear(customerInfo.getStartYear());
-        ciqr.setIssueNumber(customerInfo.getIssueNumber());
-        ciqr.setEmail(customerInfo.getEmail());
-        ciqr.setBirthday(customerInfo.getBirthday());
-        ciqr.setGender(customerInfo.getGender());
-        ciqr.setBillingTitle(customerInfo.getBillingTitle());
-        ciqr.setBillingFirstName(customerInfo.getBillingFirstName());
-        ciqr.setBillingLastName(customerInfo.getBillingLastName());
-        ciqr.setBillingCompany(customerInfo.getBillingCompany());
-        ciqr.setBillingAddress1(customerInfo.getBillingAddress1());
-        ciqr.setBillingAddress2(customerInfo.getBillingAddress2());
-        ciqr.setBillingCity(customerInfo.getBillingCity());
-        ciqr.setBillingPostcode(customerInfo.getBillingPostcode());
-        ciqr.setBillingState(customerInfo.getBillingState());
-        ciqr.setBillingCountry(customerInfo.getBillingCountry());
-        ciqr.setBillingPhone(customerInfo.getBillingPhone());
-        ciqr.setBillingFax(customerInfo.getBillingFax());
-        ciqr.setShippingTitle(customerInfo.getShippingTitle());
-        ciqr.setShippingFirstName(customerInfo.getShippingFirstName());
-        ciqr.setShippingLastName(customerInfo.getShippingLastName());
-        ciqr.setShippingCompany(customerInfo.getShippingCompany());
-        ciqr.setShippingAddress1(customerInfo.getShippingAddress1());
-        ciqr.setShippingAddress2(customerInfo.getShippingAddress2());
-        ciqr.setShippingCity(customerInfo.getShippingCity());
-        ciqr.setShippingPostcode(customerInfo.getShippingPostcode());
-        ciqr.setShippingState(customerInfo.getShippingState());
-        ciqr.setShippingCountry(customerInfo.getShippingCountry());
-        ciqr.setShippingPhone(customerInfo.getShippingPhone());
-        ciqr.setShippingFax(customerInfo.getShippingFax());
-        ciqr.setToken(customerInfo.getToken());
+        CustomerInfoJson ci = new CustomerInfoJson();
+        ci.setNumber(customerInfo.getCustomerNumber());
+        ci.setCreatedAt(customerInfo.getCreatedAt());
+        ci.setModifiedAt(customerInfo.getModifiedAt());
+        ci.setDeletedAt(customerInfo.getDeletedAt());
+        ci.setExpiryMonth(customerInfo.getExpiryMonth());
+        ci.setExpiryYear(customerInfo.getExpiryYear());
+        ci.setStartMonth(customerInfo.getStartMonth());
+        ci.setStartYear(customerInfo.getStartYear());
+        ci.setIssueNumber(customerInfo.getIssueNumber());
+        ci.setEmail(customerInfo.getEmail());
+        ci.setBirthday(customerInfo.getBirthday());
+        ci.setGender(customerInfo.getGender());
+        ci.setBillingTitle(customerInfo.getBillingTitle());
+        ci.setBillingFirstName(customerInfo.getBillingFirstName());
+        ci.setBillingLastName(customerInfo.getBillingLastName());
+        ci.setBillingCompany(customerInfo.getBillingCompany());
+        ci.setBillingAddress1(customerInfo.getBillingAddress1());
+        ci.setBillingAddress2(customerInfo.getBillingAddress2());
+        ci.setBillingCity(customerInfo.getBillingCity());
+        ci.setBillingPostcode(customerInfo.getBillingPostcode());
+        ci.setBillingState(customerInfo.getBillingState());
+        ci.setBillingCountry(customerInfo.getBillingCountry());
+        ci.setBillingPhone(customerInfo.getBillingPhone());
+        ci.setBillingFax(customerInfo.getBillingFax());
+        ci.setShippingTitle(customerInfo.getShippingTitle());
+        ci.setShippingFirstName(customerInfo.getShippingFirstName());
+        ci.setShippingLastName(customerInfo.getShippingLastName());
+        ci.setShippingCompany(customerInfo.getShippingCompany());
+        ci.setShippingAddress1(customerInfo.getShippingAddress1());
+        ci.setShippingAddress2(customerInfo.getShippingAddress2());
+        ci.setShippingCity(customerInfo.getShippingCity());
+        ci.setShippingPostcode(customerInfo.getShippingPostcode());
+        ci.setShippingState(customerInfo.getShippingState());
+        ci.setShippingCountry(customerInfo.getShippingCountry());
+        ci.setShippingPhone(customerInfo.getShippingPhone());
+        ci.setShippingFax(customerInfo.getShippingFax());
+        ci.setToken(customerInfo.getToken());
+
+        ciqr.setCustomerInfo(ci);
 
         return ciqr;
     }

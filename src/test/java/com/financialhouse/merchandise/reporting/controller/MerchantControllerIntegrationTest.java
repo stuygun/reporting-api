@@ -45,10 +45,42 @@ public class MerchantControllerIntegrationTest extends AbstractControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("Login Failed")
-    public void testLoginFailed() throws URISyntaxException, IOException {
+    @DisplayName("Login Failed - Without Input")
+    public void testLoginFailedWithoutInput() throws URISyntaxException, IOException {
+        try {
+            login(null, null);
+        } catch (HttpStatusCodeException e) {
+            AuthenticationErrorResponse aer = objectMapper.readValue(e.getResponseBodyAsString(), AuthenticationErrorResponse.class);
+            assertAll(
+                    () -> assertThat(e.getRawStatusCode(), is(equalTo(500))),
+                    () -> assertThat(aer.getCode().intValue(), is(equalTo(0))),
+                    () -> assertThat(aer.getStatus(), is(equalTo(Status.DECLINED))),
+                    () -> assertThat(aer.getMessage(), is(equalTo("Error: Merchant User credentials is not valid")))
+            );
+        }
+    }
+
+    @Test
+    @DisplayName("Login Failed - Invalid Password")
+    public void testLoginFailedDueToInvalidPassword() throws URISyntaxException, IOException {
         try {
             login("testuser@financialhouse.com", "123457");
+        } catch (HttpStatusCodeException e) {
+            AuthenticationErrorResponse aer = objectMapper.readValue(e.getResponseBodyAsString(), AuthenticationErrorResponse.class);
+            assertAll(
+                    () -> assertThat(e.getRawStatusCode(), is(equalTo(500))),
+                    () -> assertThat(aer.getCode().intValue(), is(equalTo(0))),
+                    () -> assertThat(aer.getStatus(), is(equalTo(Status.DECLINED))),
+                    () -> assertThat(aer.getMessage(), is(equalTo("Error: Merchant User credentials is not valid")))
+            );
+        }
+    }
+
+    @Test
+    @DisplayName("Login Failed - Non-Existing User")
+    public void testLoginFailedDueToNonExistingUser() throws URISyntaxException, IOException {
+        try {
+            login("abc@mail.com", "123456");
         } catch (HttpStatusCodeException e) {
             AuthenticationErrorResponse aer = objectMapper.readValue(e.getResponseBodyAsString(), AuthenticationErrorResponse.class);
             assertAll(

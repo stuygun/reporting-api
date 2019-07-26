@@ -1,17 +1,14 @@
 package com.financialhouse.merchandise.reporting.model.db;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder(access = AccessLevel.PUBLIC)
 @Entity
 @Table(name = "FX_TRANSACTION")
 public class FxTransaction {

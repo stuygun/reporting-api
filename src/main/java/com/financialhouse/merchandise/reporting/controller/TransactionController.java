@@ -1,8 +1,7 @@
 package com.financialhouse.merchandise.reporting.controller;
 
 import com.financialhouse.merchandise.reporting.model.db.Transaction;
-import com.financialhouse.merchandise.reporting.model.rest.CustomerInfoQueryRequest;
-import com.financialhouse.merchandise.reporting.repository.TransactionRepository;
+import com.financialhouse.merchandise.reporting.model.rest.TransactionQueryRequest;
 import com.financialhouse.merchandise.reporting.service.TransactionService;
 import com.financialhouse.merchandise.reporting.util.ModelConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +15,17 @@ import java.util.Optional;
 
 @CrossOrigin
 @RestController
-public class ClientController {
+public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
-    @PostMapping("/client")
-    public ResponseEntity<?> queryCustomerInfoWithTransactionId(@RequestBody CustomerInfoQueryRequest request) {
+    @PostMapping("/transactions")
+    public ResponseEntity<?> queryTransactionWithTransactionId(@RequestBody TransactionQueryRequest request) {
         String transactionId = request.getTransactionId();
         Optional<Transaction> queriedTransaction = transactionService.queryTransactionWithTransactionId(transactionId);
         if (queriedTransaction.isPresent()) {
             return ResponseEntity.ok(ModelConverter.convert(queriedTransaction.get().getCustomerInfo()));
         }
-
         return ResponseEntity.ok("");
     }
 }

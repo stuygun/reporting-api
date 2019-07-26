@@ -6,9 +6,9 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder(access = AccessLevel.PUBLIC)
 @Entity
 @Table(name = "AGENT")
 public class Agent {
@@ -17,6 +17,7 @@ public class Agent {
     private Long id;
     private String customerIp;
     private String customerUserAgent;
+    private String merchantIp;
     private String merchantUserAgent;
 
     @Setter(AccessLevel.NONE)

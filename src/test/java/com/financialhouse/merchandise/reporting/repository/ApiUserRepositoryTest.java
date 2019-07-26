@@ -1,6 +1,7 @@
 package com.financialhouse.merchandise.reporting.repository;
 
 import com.financialhouse.merchandise.reporting.model.db.ApiUser;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class ApiUserRepositoryTest {
     private ApiUserRepository apiUserRepository;
 
     @Test
+    @DisplayName("Find ApiUser by Username")
     public void whenFindByNameThenReturnApiUser() {
         ApiUser defaultApiUser = new ApiUser();
         defaultApiUser.setUsername("testuser@financialhouse.com");
@@ -38,6 +40,5 @@ public class ApiUserRepositoryTest {
         assertEquals(defaultApiUser.getUsername(),
                 found.get().getUsername(),
                 "Problem with getting persisted apiuser");
-
     }
 }

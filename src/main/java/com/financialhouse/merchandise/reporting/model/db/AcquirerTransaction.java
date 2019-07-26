@@ -1,17 +1,14 @@
 package com.financialhouse.merchandise.reporting.model.db;
 
 import com.financialhouse.merchandise.reporting.model.db.enums.AcquirerType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder(access = AccessLevel.PUBLIC)
 @Entity
 @Table(name = "ACQUIRER_TRANSACTION")
 public class AcquirerTransaction {

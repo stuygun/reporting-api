@@ -1,10 +1,13 @@
 package com.financialhouse.merchandise.reporting.model.db;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder(access = AccessLevel.PUBLIC)
 @Entity
 @Table(name = "API_USER")
 public class ApiUser {

@@ -1,17 +1,14 @@
 package com.financialhouse.merchandise.reporting.model.db;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder(access = AccessLevel.PUBLIC)
 @Entity
 @Table(name = "MERCHANT")
 public class Merchant {
@@ -21,7 +18,7 @@ public class Merchant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private boolean allowedPartialRefund;
+    private boolean allowPartialRefund;
     private boolean allowPartialCapture;
 
 }

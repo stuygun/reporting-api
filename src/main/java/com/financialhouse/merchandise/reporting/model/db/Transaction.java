@@ -2,14 +2,15 @@ package com.financialhouse.merchandise.reporting.model.db;
 
 import com.financialhouse.merchandise.reporting.model.db.enums.Operation;
 import com.financialhouse.merchandise.reporting.model.db.enums.Status;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder(access = AccessLevel.PUBLIC)
 @Entity
 @Table(name = "TRANSACTION")
 public class Transaction {
@@ -31,6 +32,7 @@ public class Transaction {
     private Date deletedAt;
 
     @Setter(AccessLevel.NONE)
+    @Column(name = "TRANSACTION_DATE")
     private Long date;
 
     private String referenceNo;
