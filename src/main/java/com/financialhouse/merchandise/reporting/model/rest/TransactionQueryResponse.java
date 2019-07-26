@@ -2,6 +2,7 @@ package com.financialhouse.merchandise.reporting.model.rest;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.financialhouse.merchandise.reporting.model.db.enums.Operation;
 import com.financialhouse.merchandise.reporting.model.db.enums.Status;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonPropertyOrder({"customerInfo", "fx", "transaction", "merchant"})
 public class TransactionQueryResponse {
     @JsonProperty("customerInfo")
     private CustomerInfoJson customerInfo;
@@ -29,14 +31,15 @@ public class TransactionQueryResponse {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    class Fx {
+    public static class Fx {
         @JsonProperty("merchant")
         private FxMerchant fxMerchant;
 
         @Data
         @NoArgsConstructor
         @AllArgsConstructor
-        class FxMerchant{
+        @JsonPropertyOrder({"originalAmount", "originalCurrency"})
+        public static class FxMerchant {
             private String originalAmount;
             private String originalCurrency;
         }
@@ -45,19 +48,24 @@ public class TransactionQueryResponse {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    class Transaction {
+    public static class Transaction {
         @JsonProperty("merchant")
         private TransactionMerchant transactionMerchant;
 
         @Data
         @NoArgsConstructor
         @AllArgsConstructor
-        class TransactionMerchant {
+        @JsonPropertyOrder({"id", "referenceNo", "merchantId", "fxTransactionId", "acquirerTransactionId",
+                "chainId", "agentInfoId", "returnUrl", "status", "operation", "created_at", "updated_at",
+                "deleted_at", "code", "message", "channel", "customData", "parentId", "type", "transactionId",
+                "agent"})
+        public static class TransactionMerchant {
             private Long id;
             private String referenceNo;
             private Long merchantId;
             private String fxTransactionId;
             private String acquirerTransactionId;
+            private String chainId;
             private Long agentInfoId;
             private String returnUrl;
             private Status status;
@@ -65,11 +73,11 @@ public class TransactionQueryResponse {
             @JsonProperty("created_at")
             @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
             private Date createdAt;
-            @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
             @JsonProperty("updated_at")
-            private Date modifiedAt;
             @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+            private Date modifiedAt;
             @JsonProperty("deleted_at")
+            @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
             private Date deletedAt;
             private String code;
             private String message;
@@ -83,20 +91,22 @@ public class TransactionQueryResponse {
             @Data
             @NoArgsConstructor
             @AllArgsConstructor
-            class Agent {
+            @JsonPropertyOrder({"id", "customerIp", "customerUserAgent", "merchantIp", "merchantIp",
+                    "merchantUserAgent", "created_at", "updated_at", "deleted_at"})
+            public static class Agent {
                 private Long id;
-                private String customerId;
+                private String customerIp;
                 private String customerUserAgent;
                 private String merchantIp;
                 private String merchantUserAgent;
                 @JsonProperty("created_at")
                 @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
                 private Date createdAt;
-                @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
                 @JsonProperty("updated_at")
-                private Date modifiedAt;
                 @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+                private Date modifiedAt;
                 @JsonProperty("deleted_at")
+                @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
                 private Date deletedAt;
             }
         }
@@ -105,7 +115,7 @@ public class TransactionQueryResponse {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    class Merchant {
+    public static class Merchant {
         private String name;
     }
 }

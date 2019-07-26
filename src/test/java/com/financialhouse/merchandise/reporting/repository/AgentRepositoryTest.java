@@ -37,6 +37,25 @@ public class AgentRepositoryTest {
     }
 
     @Test
+    @DisplayName("Create Agent")
+    public void testCreateAgent() {
+        Agent agent = Agent.builder().customerIp("111.11.111.111")
+                .customerUserAgent("PostmanRuntime/7.3.1")
+                .merchantIp("222.22.222.222")
+                .merchantUserAgent("PostmanRuntime/7.3.2").build();
+        Agent savedAgent = agentRepository.saveAndFlush(agent);
+        assertAll(
+                () -> assertNotNull(savedAgent),
+                () -> assertNotNull(savedAgent.getCreatedAt()),
+                () -> assertNotNull(savedAgent.getModifiedAt()),
+                () -> assertTrue(savedAgent.getCustomerIp().equals("111.11.111.111")),
+                () -> assertTrue(savedAgent.getCustomerUserAgent().equals("PostmanRuntime/7.3.1")),
+                () -> assertTrue(savedAgent.getMerchantIp().equals("222.22.222.222")),
+                () -> assertTrue(savedAgent.getMerchantUserAgent().equals("PostmanRuntime/7.3.2"))
+        );
+    }
+
+    @Test
     @DisplayName("Update Agent")
     public void testUpdateAgent() {
         Optional<Agent> byId = agentRepository.findById(999401L);

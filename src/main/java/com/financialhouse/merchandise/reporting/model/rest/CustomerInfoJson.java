@@ -2,6 +2,7 @@ package com.financialhouse.merchandise.reporting.model.rest;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.financialhouse.merchandise.reporting.model.db.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +13,13 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonPropertyOrder({"customerNumber", "created_at", "updated_at", "deleted_at", "expiryMonth",
+        "expiryYear", "startMonth", "startYear", "issueNumber", "email", "birthday", "gender",
+        "billingTitle", "billingFirstName", "billingLastName", "billingCompany", "billingAddress1",
+        "billingAddress2", "billingCity", "billingPostcode", "billingState", "billingCountry",
+        "billingPhone", "billingFax", "shippingTitle", "shippingFirstName", "shippingLastName",
+        "shippingCompany", "shippingAddress1", "shippingAddress2", "shippingCity", "shippingPostcode",
+        "shippingState", "shippingCountry", "shippingPhone", "shippingFax", "token"})
 public class CustomerInfoJson {
     @JsonProperty("customerNumber")
     private Long number;

@@ -5,7 +5,7 @@
         xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0
         https://raw.githubusercontent.com/spotbugs/spotbugs/3.1.0/spotbugs/etc/findbugsfilter.xsd">
     <Match>
-        <Class name="com.financialhouse.merchandise.reporting.model.rest.CustomerInfoQueryResponse"/>
+        <Class name="com.financialhouse.merchandise.reporting.model.rest.CustomerInfoJson"/>
         <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
     </Match>
     <Match>
@@ -30,6 +30,14 @@
     </Match>
     <Match>
         <Class name="com.financialhouse.merchandise.reporting.model.db.Transaction$TransactionBuilder"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="com.financialhouse.merchandise.reporting.model.rest.TransactionQueryResponse$Transaction$TransactionMerchant"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="com.financialhouse.merchandise.reporting.model.rest.TransactionQueryResponse$Transaction$TransactionMerchant$Agent"/>
         <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
     </Match>
 </FindBugsFilter>

@@ -23,7 +23,7 @@ public class TransactionService {
                 long date = Long.parseLong(split[1]);
                 long merchantId = Long.parseLong(split[2]);
                 return transactionRepository.findOneByIdAndDateAndMerchantId(id, date, merchantId);
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 log.error("transactionId[" + transactionId + "] is not well formatted", e);
             }
         }

@@ -1,0 +1,129 @@
+{
+	"info": {
+		"_postman_id": "22ef23cb-dbcb-4575-b0d9-84c2605f59e5",
+		"name": "FinancialHouse Reporting-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authenticate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"testuser@financialhouse.com\",\n\t\"password\": \"123456\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:8443/api/v3/merchant/user/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"v3",
+						"merchant",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0dXNlckBmaW5hbmNpYWxob3VzZS5jb20iLCJleHAiOjE1NjM5MDA0MjgsImlhdCI6MTU2MzkwMDM2OH0.NTKaYhy3Lru3CsJyQMLpS6MEFKi_CX9n1L9EZl6O8KLYiSMuth290F5tzOlPujbkVcyAIi4A5RbO-cwkGlqUAQ"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://localhost:8443/api/v3/test",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"v3",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Client",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0dXNlckBmaW5hbmNpYWxob3VzZS5jb20iLCJleHAiOjE1NjM5MDI3OTgsImlhdCI6MTU2MzkwMjczOH0.21HBf1JlON4U5c9EiYFig2WuVZHapF0cjZVZUzMnGKcJOd_eZpyqyZhNhWh3gsjWiyuvF21qHlJLVLWVGQV3qA"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://localhost:8443/api/v3/client",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"v3",
+						"client"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Transaction",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0dXNlckBmaW5hbmNpYWxob3VzZS5jb20iLCJleHAiOjE1NjQxNTE3NDEsImlhdCI6MTU2NDE1MTY4MX0.o-jPxGBZ7YIFax-esJmb2y53Ds1BSYLawoe9GW_GdGprY3-NwEUUNPT2ng8JijwvydQyBFgP39wMl1fp-rfvqA"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"transactionId\": \"999702-1539329656-99921\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:8443/api/v3/transactions",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"v3",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

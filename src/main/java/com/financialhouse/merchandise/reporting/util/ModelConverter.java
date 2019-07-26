@@ -6,26 +6,87 @@ import com.financialhouse.merchandise.reporting.model.rest.CustomerInfoJson;
 import com.financialhouse.merchandise.reporting.model.rest.CustomerInfoQueryResponse;
 import com.financialhouse.merchandise.reporting.model.rest.TransactionQueryResponse;
 
+import java.util.Optional;
+
 public final class ModelConverter {
     private ModelConverter() {
         throw new UnsupportedOperationException("Utility class cannot be instantiated");
     }
 
-    public static TransactionQueryResponse convertToQueryResponse(Transaction transaction){
+    public static Optional<TransactionQueryResponse> convertToQueryTransactionResponse(Transaction transaction) {
         if (transaction == null) {
-            return null;
+            return Optional.empty();
         }
+        TransactionQueryResponse tqr = new TransactionQueryResponse();
 
-        return null;
+        tqr.setCustomerInfo(convertToCustomerInfoJson(transaction.getCustomerInfo()));
+
+        TransactionQueryResponse.Fx fx = new TransactionQueryResponse.Fx();
+        TransactionQueryResponse.Fx.FxMerchant fxMerchant = new TransactionQueryResponse.Fx.FxMerchant();
+        fxMerchant.setOriginalAmount(transaction.getFxTransaction().getOriginalAmount().toString());
+        fxMerchant.setOriginalCurrency(transaction.getFxTransaction().getOriginalCurrency());
+        fx.setFxMerchant(fxMerchant);
+        tqr.setFx(fx);
+
+        TransactionQueryResponse.Transaction respTran = new TransactionQueryResponse.Transaction();
+        TransactionQueryResponse.Transaction.TransactionMerchant respTranMerchant =
+                new TransactionQueryResponse.Transaction.TransactionMerchant();
+        respTranMerchant.setId(transaction.getId());
+        respTranMerchant.setReferenceNo(transaction.getReferenceNo());
+        respTranMerchant.setMerchantId(transaction.getMerchant().getId());
+        respTranMerchant.setFxTransactionId(transaction.getFxTransaction().getFxTransactionId());
+        respTranMerchant.setAcquirerTransactionId(transaction.getAcquirerTransaction().getAcquirerTransactionId());
+        respTranMerchant.setChainId(transaction.getChainId());
+        respTranMerchant.setAgentInfoId(transaction.getAgent().getId());
+        respTranMerchant.setReturnUrl(transaction.getReturnUrl());
+        respTranMerchant.setStatus(transaction.getStatus());
+        respTranMerchant.setOperation(transaction.getOperation());
+        respTranMerchant.setCreatedAt(transaction.getCreatedAt());
+        respTranMerchant.setModifiedAt(transaction.getModifiedAt());
+        respTranMerchant.setDeletedAt(transaction.getDeletedAt());
+        respTranMerchant.setCode(transaction.getCode());
+        respTranMerchant.setMessage(transaction.getMessage());
+        respTranMerchant.setChannel(transaction.getChannel());
+        respTranMerchant.setCustomData(transaction.getCustomData());
+        respTranMerchant.setParentId(null);
+        respTranMerchant.setType(transaction.getType());
+        respTranMerchant.setTransactionId(transaction.getTransactionId());
+
+        TransactionQueryResponse.Transaction.TransactionMerchant.Agent respTranMerchantAgent =
+                new TransactionQueryResponse.Transaction.TransactionMerchant.Agent();
+        respTranMerchantAgent.setId(transaction.getAgent().getId());
+        respTranMerchantAgent.setCustomerIp(transaction.getAgent().getCustomerIp());
+        respTranMerchantAgent.setCustomerUserAgent(transaction.getAgent().getCustomerUserAgent());
+        respTranMerchantAgent.setMerchantIp(transaction.getAgent().getMerchantIp());
+        respTranMerchantAgent.setMerchantUserAgent(transaction.getAgent().getMerchantUserAgent());
+        respTranMerchantAgent.setCreatedAt(transaction.getAgent().getCreatedAt());
+        respTranMerchantAgent.setModifiedAt(transaction.getAgent().getModifiedAt());
+        respTranMerchantAgent.setDeletedAt(transaction.getAgent().getDeletedAt());
+
+        respTranMerchant.setAgent(respTranMerchantAgent);
+        respTran.setTransactionMerchant(respTranMerchant);
+        tqr.setTransaction(respTran);
+
+        TransactionQueryResponse.Merchant respMerchant = new TransactionQueryResponse.Merchant();
+        respMerchant.setName(transaction.getMerchant().getName());
+        tqr.setMerchant(respMerchant);
+
+        return Optional.of(tqr);
     }
 
-    public static CustomerInfoQueryResponse convert(CustomerInfo customerInfo) {
+    public static Optional<CustomerInfoQueryResponse> convertToQueryCustomerInfoResponse(CustomerInfo customerInfo) {
         if (customerInfo == null) {
-            return null;
+            return Optional.empty();
         }
 
         CustomerInfoQueryResponse ciqr = new CustomerInfoQueryResponse();
+        CustomerInfoJson ci = convertToCustomerInfoJson(customerInfo);
+        ciqr.setCustomerInfo(ci);
 
+        return Optional.of(ciqr);
+    }
+
+    private static CustomerInfoJson convertToCustomerInfoJson(CustomerInfo customerInfo) {
         CustomerInfoJson ci = new CustomerInfoJson();
         ci.setNumber(customerInfo.getCustomerNumber());
         ci.setCreatedAt(customerInfo.getCreatedAt());
@@ -65,8 +126,6 @@ public final class ModelConverter {
         ci.setShippingFax(customerInfo.getShippingFax());
         ci.setToken(customerInfo.getToken());
 
-        ciqr.setCustomerInfo(ci);
-
-        return ciqr;
+        return ci;
     }
 }

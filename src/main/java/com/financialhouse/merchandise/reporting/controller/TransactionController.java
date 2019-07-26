@@ -2,6 +2,7 @@ package com.financialhouse.merchandise.reporting.controller;
 
 import com.financialhouse.merchandise.reporting.model.db.Transaction;
 import com.financialhouse.merchandise.reporting.model.rest.TransactionQueryRequest;
+import com.financialhouse.merchandise.reporting.model.rest.TransactionQueryResponse;
 import com.financialhouse.merchandise.reporting.service.TransactionService;
 import com.financialhouse.merchandise.reporting.util.ModelConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,15 @@ public class TransactionController {
         String transactionId = request.getTransactionId();
         Optional<Transaction> queriedTransaction = transactionService.queryTransactionWithTransactionId(transactionId);
         if (queriedTransaction.isPresent()) {
-            return ResponseEntity.ok(ModelConverter.convert(queriedTransaction.get().getCustomerInfo()));
+            Optional<TransactionQueryResponse> convert = ModelConverter.convertToQueryTransactionResponse(queriedTransaction.get());
+            if(convert.isPresent()){
+                return ResponseEntity.ok(convert.get());
+            }
         }
+
         return ResponseEntity.ok("");
     }
+
+    //TODO: @PostMapping("/transactions/report")
+    //TODO: @PostMapping("/transactions/list")
 }
