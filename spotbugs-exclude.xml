@@ -35,9 +35,13 @@
     <Match>
         <Class name="com.financialhouse.merchandise.reporting.model.rest.TransactionQueryResponse$Transaction$TransactionMerchant"/>
         <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
-    </Match>
+    </Match>ReportRequest.java:
     <Match>
         <Class name="com.financialhouse.merchandise.reporting.model.rest.TransactionQueryResponse$Transaction$TransactionMerchant$Agent"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="com.financialhouse.merchandise.reporting.model.rest.ReportRequest"/>
         <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
     </Match>
 </FindBugsFilter>

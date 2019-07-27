@@ -106,7 +106,7 @@ public class ReportingApplication {
                     .customerIp("213.74.172.226")
                     .merchantUserAgent("PostmanRuntime/7.3.0").build();
 
-            FxTransaction fxTransaction1 = FxTransaction.builder().convertedAmount(new BigDecimal(1500))
+            FxTransaction fxTransaction1 = FxTransaction.builder().originalAmount(new BigDecimal(1500))
                     .originalCurrency("RUB")
                     .convertedAmount(new BigDecimal(1500))
                     .convertedCurrency("RUB")
@@ -143,56 +143,6 @@ public class ReportingApplication {
 
             Transaction savedTransaction = transactionRepository.save(transaction1);
             log.debug("transactionId: " + savedTransaction.getTransactionId());
-
-            AcquirerTransaction acquirerTransaction2 = AcquirerTransaction.builder().name("RoyalPay PayToCard")
-                    .code("RP")
-                    .type(AcquirerType.PAYTOCARD)
-                    .acquirerTransactionId(UUID.randomUUID().toString())
-                    .build();
-
-            Agent agent2 = Agent.builder().customerIp("213.74.172.226")
-                    .customerUserAgent("PostmanRuntime/7.3.0")
-                    .customerIp("213.74.172.226")
-                    .merchantUserAgent("PostmanRuntime/7.3.0").build();
-
-            FxTransaction fxTransaction2 = FxTransaction.builder().convertedAmount(new BigDecimal(1500))
-                    .originalCurrency("RUB")
-                    .convertedAmount(new BigDecimal(1500))
-                    .convertedCurrency("RUB")
-                    .fxTransactionId(UUID.randomUUID().toString())
-                    .build();
-
-            IPN ipn2 = IPN.builder().sent(true)
-                    .token(UUID.randomUUID().toString())
-                    .type("MERCHANTIPN")
-                    .url("https://requestb.in/10bmd651")
-                    .build();
-
-            Transaction transaction2 = new Transaction();
-            transaction2.setCustomerInfo(savedCi);
-            transaction2.setMerchant(savedMerchant);
-            transaction2.setAcquirerTransaction(acquirerTransaction2);
-            transaction2.setAgent(agent2);
-            transaction2.setFxTransaction(fxTransaction2);
-            transaction2.setIpn(ipn2);
-
-            acquirerTransaction2.setTransaction(transaction2);
-            agent2.setTransaction(transaction2);
-            fxTransaction2.setTransaction(transaction2);
-            ipn2.setTransaction(transaction2);
-
-            transaction2.setReferenceNo("trn-test-seck-1");
-            transaction2.setChainId(UUID.randomUUID().toString());
-            transaction2.setReturnUrl(null);
-            transaction2.setStatus(Status.APPROVED);
-            transaction2.setCode("00");
-            transaction2.setMessage(WordUtils.capitalizeFully(Status.APPROVED.name()));
-            transaction2.setChannel("API");
-            transaction2.setType("AUTH");
-
-            Transaction savedTransaction2 = transactionRepository.save(transaction2);
-            log.debug("transactionId: " + savedTransaction2.getTransactionId());
-
         };
     }
 }

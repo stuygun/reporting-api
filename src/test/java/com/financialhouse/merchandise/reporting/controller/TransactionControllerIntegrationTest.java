@@ -1,8 +1,7 @@
 package com.financialhouse.merchandise.reporting.controller;
 
-import com.financialhouse.merchandise.reporting.model.rest.JwtResponse;
-import com.financialhouse.merchandise.reporting.model.rest.TransactionQueryRequest;
-import com.financialhouse.merchandise.reporting.model.rest.TransactionQueryResponse;
+import com.financialhouse.merchandise.reporting.model.db.enums.Status;
+import com.financialhouse.merchandise.reporting.model.rest.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,6 +19,11 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -90,6 +94,188 @@ public class TransactionControllerIntegrationTest extends AbstractControllerTest
         );
     }
 
+    @Test
+    @DisplayName("Get Report with Between Dates For No Data")
+    public void testQueryForReportingWithBetweenDatesForNoData() throws URISyntaxException {
+        Date startDate = Date.from(Instant.now().plus(Duration.ofHours(24)));
+        Date endDate = Date.from(Instant.now().plus(Duration.ofHours(72)));
+
+        ReportRequest reportRequest = new ReportRequest(startDate, endDate, null, null);
+        ResponseEntity<ReportResponse> httpResponse = getReport(reportRequest);
+        ReportResponse reportResponse = httpResponse.getBody();
+        assertAll(
+                () -> assertThat(httpResponse.getStatusCodeValue(), is(equalTo(200))),
+                () -> assertNull(reportResponse)
+        );
+    }
+
+    @Test
+    @DisplayName("Get Report with Between Dates")
+    public void testQueryForReportingWithBetweenDates() throws URISyntaxException {
+        Date startDate = Date.from(LocalDate.parse("2015-01-01").atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date endDate = Date.from(Instant.now().plus(Duration.ofHours(24)));
+
+        ReportRequest reportRequest = new ReportRequest(startDate, endDate, null, null);
+        ResponseEntity<ReportResponse> httpResponse = getReport(reportRequest);
+        ReportResponse reportResponse = httpResponse.getBody();
+        assertAll(
+                () -> assertThat(httpResponse.getStatusCodeValue(), is(equalTo(200))),
+                () -> assertNotNull(reportResponse),
+                () -> assertNotNull(reportResponse.getStatus()),
+                () -> assertNotNull(reportResponse.getReportData()),
+                () -> assertEquals(Status.APPROVED, reportResponse.getStatus()),
+                () -> assertEquals(4, reportResponse.getReportData().size())
+        );
+        reportResponse.getReportData().forEach(item -> {
+            switch (item.getCurrency()) {
+                case "TRY": {
+                    assertAll(
+                            () -> assertEquals(1, item.getCount()),
+                            () -> assertEquals("870.00", item.getTotal())
+                    );
+                    break;
+                }
+                case "USD": {
+                    assertAll(
+                            () -> assertEquals(1, item.getCount()),
+                            () -> assertEquals("1000.00", item.getTotal())
+                    );
+                    break;
+                }
+                case "GBP": {
+                    assertAll(
+                            () -> assertEquals(2, item.getCount()),
+                            () -> assertEquals("800.00", item.getTotal())
+                    );
+                    break;
+                }
+                case "RUB": {
+                    assertAll(
+                            () -> assertEquals(1, item.getCount()),
+                            () -> assertEquals("1500.00", item.getTotal())
+                    );
+                    break;
+                }
+                default: {
+                    fail("Please check the init data!");
+                }
+            }
+        });
+    }
+
+    @Test
+    @DisplayName("Get Report with Between Dates and Merchant")
+    public void testQueryForReportingWithBetweenDatesAndMerchant() throws URISyntaxException {
+        Date startDate = Date.from(LocalDate.parse("2015-01-01").atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date endDate = Date.from(Instant.now().plus(Duration.ofHours(24)));
+
+        ReportRequest reportRequest = new ReportRequest(startDate, endDate, 99921L, null);
+        ResponseEntity<ReportResponse> httpResponse = getReport(reportRequest);
+        ReportResponse reportResponse = httpResponse.getBody();
+        assertAll(
+                () -> assertThat(httpResponse.getStatusCodeValue(), is(equalTo(200))),
+                () -> assertNotNull(reportResponse),
+                () -> assertNotNull(reportResponse.getStatus()),
+                () -> assertNotNull(reportResponse.getReportData()),
+                () -> assertEquals(Status.APPROVED, reportResponse.getStatus()),
+                () -> assertEquals(3, reportResponse.getReportData().size())
+        );
+        reportResponse.getReportData().forEach(item -> {
+            switch (item.getCurrency()) {
+                case "TRY": {
+                    assertAll(
+                            () -> assertEquals(1, item.getCount()),
+                            () -> assertEquals("870.00", item.getTotal())
+                    );
+                    break;
+                }
+                case "USD": {
+                    assertAll(
+                            () -> assertEquals(1, item.getCount()),
+                            () -> assertEquals("1000.00", item.getTotal())
+                    );
+                    break;
+                }
+                case "GBP": {
+                    assertAll(
+                            () -> assertEquals(1, item.getCount()),
+                            () -> assertEquals("500.00", item.getTotal())
+                    );
+                    break;
+                }
+                default: {
+                    fail("Please check the init data!");
+                }
+            }
+        });
+    }
+
+    @Test
+    @DisplayName("Get Report with Between Dates and Acquirer")
+    public void testQueryForReportingWithBetweenDatesAndAcquirer() throws URISyntaxException {
+        Date startDate = Date.from(LocalDate.parse("2015-01-01").atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date endDate = Date.from(Instant.now().plus(Duration.ofHours(24)));
+
+        ReportRequest reportRequest = new ReportRequest(startDate, endDate, null, 999304L);
+        ResponseEntity<ReportResponse> httpResponse = getReport(reportRequest);
+        ReportResponse reportResponse = httpResponse.getBody();
+        assertAll(
+                () -> assertThat(httpResponse.getStatusCodeValue(), is(equalTo(200))),
+                () -> assertNotNull(reportResponse),
+                () -> assertNotNull(reportResponse.getStatus()),
+                () -> assertNotNull(reportResponse.getReportData()),
+                () -> assertEquals(Status.APPROVED, reportResponse.getStatus()),
+                () -> assertEquals(1, reportResponse.getReportData().size())
+        );
+        reportResponse.getReportData().forEach(item -> {
+            switch (item.getCurrency()) {
+                case "GBP": {
+                    assertAll(
+                            () -> assertEquals(1, item.getCount()),
+                            () -> assertEquals("300.00", item.getTotal())
+                    );
+                    break;
+                }
+                default: {
+                    fail("Please check the init data!");
+                }
+            }
+        });
+    }
+
+    @Test
+    @DisplayName("Get Report with Between Dates and Acquirer and Merchant")
+    public void testQueryForReportingWithBetweenDatesAndAcquirerAndMerchant() throws URISyntaxException {
+        Date startDate = Date.from(LocalDate.parse("2015-01-01").atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date endDate = Date.from(Instant.now().plus(Duration.ofHours(24)));
+
+        ReportRequest reportRequest = new ReportRequest(startDate, endDate, 99922L, 999304L);
+        ResponseEntity<ReportResponse> httpResponse = getReport(reportRequest);
+        ReportResponse reportResponse = httpResponse.getBody();
+        assertAll(
+                () -> assertThat(httpResponse.getStatusCodeValue(), is(equalTo(200))),
+                () -> assertNotNull(reportResponse),
+                () -> assertNotNull(reportResponse.getStatus()),
+                () -> assertNotNull(reportResponse.getReportData()),
+                () -> assertEquals(Status.APPROVED, reportResponse.getStatus()),
+                () -> assertEquals(1, reportResponse.getReportData().size())
+        );
+        reportResponse.getReportData().forEach(item -> {
+            switch (item.getCurrency()) {
+                case "GBP": {
+                    assertAll(
+                            () -> assertEquals(1, item.getCount()),
+                            () -> assertEquals("300.00", item.getTotal())
+                    );
+                    break;
+                }
+                default: {
+                    fail("Please check the init data!");
+                }
+            }
+        });
+    }
+
     private ResponseEntity<TransactionQueryResponse> queryByTransactionId(String transactionId) throws URISyntaxException {
         RestTemplate restTemplate = restTemplate();
         URI uri = new URI(createURLWithPort("/transactions"));
@@ -98,7 +284,6 @@ public class TransactionControllerIntegrationTest extends AbstractControllerTest
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", jwtResponse.getToken());
         headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
-        HttpEntity entity = new HttpEntity(headers);
 
         TransactionQueryRequest request = new TransactionQueryRequest(transactionId);
 
@@ -106,5 +291,19 @@ public class TransactionControllerIntegrationTest extends AbstractControllerTest
 
         return restTemplate.postForEntity(
                 uri, httpRequest, TransactionQueryResponse.class);
+    }
+
+    private ResponseEntity<ReportResponse> getReport(ReportRequest reportRequest) throws URISyntaxException {
+        RestTemplate restTemplate = restTemplate();
+        URI uri = new URI(createURLWithPort("/transactions/report"));
+        JwtResponse jwtResponse = login("testuser@financialhouse.com", "123456");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", jwtResponse.getToken());
+        headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+
+        HttpEntity<ReportRequest> httpRequest = new HttpEntity<>(reportRequest, headers);
+
+        return restTemplate.postForEntity(uri, httpRequest, ReportResponse.class);
     }
 }

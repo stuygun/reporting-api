@@ -27,7 +27,7 @@ public class ClientController {
         if (queriedTransaction.isPresent()) {
             Optional<CustomerInfoQueryResponse> convert = ModelConverter.convertToQueryCustomerInfoResponse(
                     queriedTransaction.get().getCustomerInfo());
-            if(convert.isPresent()) {
+            if (convert.isPresent()) {
                 return ResponseEntity.ok(convert.get());
             }
         }

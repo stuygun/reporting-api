@@ -1,20 +1,13 @@
 # Financial House Assignment
 
-## TO-DO(s)
-| # | Requirement                           | Status                                 |Notes                                  |
-|---|---------------------------------------|----------------------------------------|---------------------------------------|
-| 1 | JWT Authentication Token              | OK                                     | Consider error codes. No Bearer prefix|
-| 2 | Log all request&response pairs        |                                        |                                       |
-| 3 | Dockerize and put certificate for SSL | OK                                     |                                       |
-| 4 | Create entity model                   | OK                                     |                                       |
-| 5 | Write API Methods                     |                                        |                                       |
-| 6 | Use JUnit5                            | OK                                     |                                       |
-| 7 | Hibernate Listener                    | OK                                     | For creation, modification date       |
-| 8 | Heruko Deployment Instructions        |                                        |                                       |
-| 9 | Create data.sql for initial data      | OK                                     |                                       |
-| 10| Add Postman export                    | OK                                     |                                       |
-
-* To build project, run:
+* To build project, run:  
     `mvn install dockerfile:build`  
 * In order to start the application in docker, run:  
-    `docker run -p 8443:8443 -t financialhouse/reporting-api`  
+    `docker run -p 8443:8443 -t financialhouse/reporting-api`
+* To test running instance, please use Postman export located under _resources/postman_ folder
+* In order to avoid Heroku configuration for SSL, JDK, etc. a docker image is being created during build
+* To SSL certificates (self-signed), located under _resources/keystore_ is being imported to the docker image itself
+* To check coverage, please check _target/jacoco-report_ after build, below is a current screen-shot
+
+![Jococo Report](jococo-report.PNG?raw=true "Jococo Report")
+ 

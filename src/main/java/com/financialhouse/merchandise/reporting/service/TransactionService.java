@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -28,5 +30,10 @@ public class TransactionService {
             }
         }
         return Optional.empty();
+    }
+
+    public List<Transaction> queryForReporting(Date startDate, Date toDate, Long merchantId, Long acquirerId) {
+        return transactionRepository.queryAllForReporting(startDate, toDate,
+                Optional.ofNullable(merchantId), Optional.ofNullable(acquirerId));
     }
 }

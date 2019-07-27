@@ -13,7 +13,12 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -127,6 +132,70 @@ public class TransactionRepositoryTest {
                 () -> assertNotNull(updatedTransaction),
                 () -> assertTrue(modifiedAt.before(updatedTransaction.getModifiedAt())),
                 () -> assertTrue(updatedTransaction.getReturnUrl().equals("returnurl-updated"))
+        );
+    }
+
+    @Test
+    @DisplayName("Query For Reporting with Between Dates")
+    public void testQueryForReportingWithBetweenDates() {
+        Date startDate = Date.from(LocalDate.parse("2015-01-01").atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date endDate = Date.from(Instant.now().plus(Duration.ofHours(24)));
+        List<Transaction> transactions = transactionRepository.queryAllForReporting(startDate, endDate
+                , Optional.ofNullable(null), Optional.ofNullable(null));
+        transactions.stream().forEach((t) ->
+                assertAll(
+                        () -> assertTrue(startDate.before(t.getCreatedAt())),
+                        () -> assertTrue(endDate.after(t.getCreatedAt()))
+                )
+        );
+    }
+
+    @Test
+    @DisplayName("Query For Reporting with Between Dates and Acquirer")
+    public void testQueryForReportingWithBetweenDatesAndAcquirer() {
+        Date startDate = Date.from(LocalDate.parse("2015-01-01").atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date endDate = Date.from(Instant.now().plus(Duration.ofHours(24)));
+        List<Transaction> transactions = transactionRepository.queryAllForReporting(startDate, endDate
+                , Optional.ofNullable(null), Optional.ofNullable(999304L));
+        transactions.stream().forEach((t) ->
+                assertAll(
+                        () -> assertTrue(startDate.before(t.getCreatedAt())),
+                        () -> assertTrue(endDate.after(t.getCreatedAt())),
+                        () -> assertEquals(999304L, t.getAcquirerTransaction().getId())
+                )
+        );
+    }
+
+    @Test
+    @DisplayName("Query For Reporting with Between Dates and Merchant")
+    public void testQueryForReportingWithBetweenDatesAndMerchant() {
+        Date startDate = Date.from(LocalDate.parse("2015-01-01").atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date endDate = Date.from(Instant.now().plus(Duration.ofHours(24)));
+        List<Transaction> transactions = transactionRepository.queryAllForReporting(startDate, endDate
+                , Optional.ofNullable(99921L), Optional.ofNullable(null));
+        transactions.stream().forEach((t) ->
+                assertAll(
+                        () -> assertTrue(startDate.before(t.getCreatedAt())),
+                        () -> assertTrue(endDate.after(t.getCreatedAt())),
+                        () -> assertEquals(99921L, t.getMerchant().getId())
+                )
+        );
+    }
+
+    @Test
+    @DisplayName("Query For Reporting with Between Dates and Acquirer and Merchant")
+    public void testQueryForReportingWithBetweenDatesAndAcquirerAndMerchant() {
+        Date startDate = Date.from(LocalDate.parse("2015-01-01").atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date endDate = Date.from(Instant.now().plus(Duration.ofHours(24)));
+        List<Transaction> transactions = transactionRepository.queryAllForReporting(startDate, endDate
+                , Optional.ofNullable(99922L), Optional.ofNullable(999304L));
+        transactions.stream().forEach((t) ->
+                assertAll(
+                        () -> assertTrue(startDate.before(t.getCreatedAt())),
+                        () -> assertTrue(endDate.after(t.getCreatedAt())),
+                        () -> assertEquals(999304L, t.getAcquirerTransaction().getId()),
+                        () -> assertEquals(99922L, t.getMerchant().getId())
+                )
         );
     }
 }
